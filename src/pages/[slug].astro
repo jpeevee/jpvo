@@ -1,9 +1,9 @@
 ---
 // src/pages/[slug].astro
 import Layout from '../layouts/layout.astro';
+import ContactForm from '../components/ContactForm.astro';
 import { getCollection, render } from 'astro:content';
 
-// 1. Tell Astro which static URLs to build at build time
 export async function getStaticPaths() {
   const pageEntries = await getCollection('pages');
   return pageEntries.map((entry) => ({
@@ -12,14 +12,13 @@ export async function getStaticPaths() {
   }));
 }
 
-// 2. Fetch data for the matching page
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 ---
 
 <Layout title={`${entry.data.title} | Blueprint`}>
-  <section class="max-w-4xl mx-auto py-12 px-4">
-    <div class="mb-8 border-b border-slate-800 pb-6">
+  <section class="max-w-4xl mx-auto py-12 px-4 space-y-8">
+    <div class="border-b border-slate-800 pb-6">
       <h1 class="text-4xl font-extrabold text-white tracking-tight mb-2">
         {entry.data.title}
       </h1>
@@ -28,9 +27,16 @@ const { Content } = await render(entry);
       )}
     </div>
 
-    <!-- Rendered Markdown Body Content -->
+    <!-- Render Markdown Body Content -->
     <div class="prose prose-invert max-w-none text-slate-300 leading-relaxed space-y-4">
       <Content />
     </div>
+
+    <!-- If this page is the contact page, inject the interactive form component automatically -->
+    {entry.id === 'contact' && (
+      <div class="mt-12 pt-8 border-t border-slate-800">
+        <ContactForm />
+      </div>
+    )}
   </section>
 </Layout>

@@ -1,27 +1,80 @@
 ---
 // src/pages/index.astro
 import Layout from '../layouts/layout.astro';
+import ImageSlider from '../components/ImageSlider.astro';
+import FaqAccordion from '../components/FaqAccordion.astro';
 import { getCollection } from 'astro:content';
 
-// Fetch the collection array and take the first item
 const settingsList = await getCollection('settings');
 const contact = settingsList[0]?.data;
 ---
 
 <Layout title={contact ? `${contact.companyName} | Home` : "Home"}>
   {contact ? (
-    <section class="text-center py-12">
-      <h1 class="text-4xl font-extrabold text-white mb-4">
-        Welcome to {contact.companyName}
-      </h1>
-      <p class="text-slate-400 text-lg mb-6">
-        Call us today: <a href={`tel:${contact.phone}`} class="text-indigo-400 hover:underline">{contact.phone}</a>
-      </p>
-      <div class="inline-block bg-slate-800 p-4 rounded-lg border border-slate-700">
-        <p class="text-sm text-slate-300">Email: {contact.email}</p>
-        <p class="text-sm text-slate-300">Location: {contact.address}</p>
-      </div>
-    </section>
+    <div class="space-y-20 py-8">
+      <!-- Hero Section with Sliding Animated Text -->
+      <section class="text-center max-w-3xl mx-auto px-4">
+        <span class="inline-block px-3.5 py-1 bg-violet-500/10 border border-violet-500/30 rounded-full text-violet-300 text-xs font-bold uppercase tracking-wider mb-4">
+          🚀 High-Performance Web Engineering
+        </span>
+        <h1 class="text-4xl sm:text-6xl font-extrabold text-white mb-6 tracking-tight leading-[1.15]">
+          We build fast, clean web experiences for{' '}
+          <span class="inline-block h-[1.2em] overflow-hidden align-bottom">
+            <span class="flex flex-col animate-hero-words text-left sm:text-center">
+              <span class="h-[1.2em] text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-cyan-400">modern brands.</span>
+              <span class="h-[1.2em] text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 to-amber-300">agile startups.</span>
+              <span class="h-[1.2em] text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">digital agencies.</span>
+            </span>
+          </span>
+        </h1>
+        <p class="text-slate-300 text-lg sm:text-xl mb-8 leading-relaxed">
+          Welcome to <strong class="text-white font-semibold">{contact.companyName}</strong>. Specializing in lightning-fast Astro architectures, custom Tailwind systems, and tailored digital solutions.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="/services" class="px-6 py-3.5 bg-violet-600 hover:bg-violet-500 text-white font-bold rounded-xl transition shadow-lg shadow-violet-600/25">
+            Explore Services
+          </a>
+          <a href="/contact" class="px-6 py-3.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold rounded-xl transition">
+            Get in Touch 👋
+          </a>
+        </div>
+      </section>
+
+      <!-- Feature Cards Grid -->
+      <section class="grid grid-cols-1 md:grid-cols-3 gap-6 px-4">
+        <div class="p-6 bg-slate-900/60 border border-slate-800 rounded-2xl">
+          <div class="text-2xl mb-3">⚡</div>
+          <h3 class="text-lg font-bold text-white mb-2">Blazing Speed</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Static-first Astro builds delivering instant page loads and perfect SEO scores.</p>
+        </div>
+        <div class="p-6 bg-slate-900/60 border border-slate-800 rounded-2xl">
+          <div class="text-2xl mb-3">🎨</div>
+          <h3 class="text-lg font-bold text-white mb-2">Sleek Design</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Tailwind CSS powered layouts designed to look professional, clean, and engaging.</p>
+        </div>
+        <div class="p-6 bg-slate-900/60 border border-slate-800 rounded-2xl">
+          <div class="text-2xl mb-3">🛠️</div>
+          <h3 class="text-lg font-bold text-white mb-2">Clean Architecture</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Decoupled data schemas that make managing and updating content effortless.</p>
+        </div>
+      </section>
+
+      <!-- Image Slider Component -->
+      <ImageSlider />
+
+      <!-- FAQ Accordion Component -->
+      <FaqAccordion />
+
+      <!-- Contact Bar -->
+      <section class="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 mx-4 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-slate-300">
+        <div class="flex items-center gap-3">
+          <span class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>Call Us: <a href={`tel:${contact.phone}`} class="text-cyan-400 font-semibold hover:underline">{contact.phone}</a></span>
+        </div>
+        <div>Email: <a href={`mailto:${contact.email}`} class="text-cyan-400 font-semibold hover:underline">{contact.email}</a></div>
+        <div>Base: <span class="text-white font-medium">{contact.address}</span></div>
+      </section>
+    </div>
   ) : (
     <p class="text-slate-400 text-center py-12">Contact settings file not found.</p>
   )}

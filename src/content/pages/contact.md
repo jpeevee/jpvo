@@ -1,6 +1,6 @@
 ---
-title: "Get in Touch"
-subtitle: "We'd love to hear from you."
+title: "Let's Build Something Great"
+subtitle: "Have a project in mind, need a quote, or want to discuss technical architecture? Reach out today."
 ---
 
-Fill out the form below or reach out directly using our contact details.
+Whether you need a brand-new website or want to upgrade an existing platform to a fast Astro architecture, we're here to help. Reach out using the form or check out our direct contact options below.

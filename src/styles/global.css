@@ -1,1 +1,33 @@
+/* src/styles/global.css */
 @import "tailwindcss";
+
+@keyframes slideWords {
+  0%,
+  28% {
+    transform: translateY(0%);
+  }
+  33%,
+  61% {
+    transform: translateY(-33.333%);
+  }
+  66%,
+  94% {
+    transform: translateY(-66.666%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+.animate-hero-words {
+  animation: slideWords 9s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+/* Hide scrollbars cleanly for the CSS scroll-snap image slider */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
